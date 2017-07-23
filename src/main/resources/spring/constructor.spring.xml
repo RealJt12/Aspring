@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 默认按声明顺序来调用构造函数 -->
+	<bean id="car0" class="com.realjt.aspring.constructor.Car">
+		<constructor-arg value="Audi" />
+		<constructor-arg value="Shanghai" />
+		<constructor-arg value="200000" />
+	</bean>
+
+	<!-- 可以通过index来指定参数顺序 -->
+	<bean id="car1" class="com.realjt.aspring.constructor.Car">
+		<constructor-arg value="Audi" index="0" />
+		<constructor-arg value="200000" index="2" />
+		<constructor-arg value="Shanghai" index="1" />
+	</bean>
+
+	<!-- 可以通过type来指定参数类型 -->
+	<bean id="car2" class="com.realjt.aspring.constructor.Car">
+		<constructor-arg value="Audi" type="java.lang.String" />
+		<constructor-arg value="Shanghai" type="java.lang.String" />
+		<constructor-arg value="240" type="double" />
+	</bean>
+
+	<!-- index和type可以混合使用，以确定重载的构造函数 -->
+	<bean id="car3" class="com.realjt.aspring.constructor.Car">
+		<constructor-arg value="Audi" index="0" />
+		<constructor-arg value="Shanghai" index="1" />
+		<constructor-arg value="240" type="double" />
+	</bean>
+
+	<!-- value子节点，特殊字符用<![CDATA[]]> -->
+	<bean id="car4" class="com.realjt.aspring.constructor.Car">
+		<constructor-arg index="0">
+			<value>Audi</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value><![CDATA[<Shanghai]]></value>
+		</constructor-arg>
+		<constructor-arg type="double">
+			<value>240</value>
+		</constructor-arg>
+	</bean>
+
+</beans>
