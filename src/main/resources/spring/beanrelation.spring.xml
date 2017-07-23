@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 一个bean的class没有指定，则该bean必须是一个抽象bean，且不会被IOC容器实例化 -->
+	<bean id="Phone" abstract="true" p:system="Android" p:arch="arm"></bean>
+
+	<!-- 抽象bean，可以不指定class，不能被IOC容器实例化，只能被用来继承配置 -->
+	<bean id="Android" class="com.realjt.aspring.beanrelation.Phone"
+		abstract="true" p:system="Android" p:arch="arm"></bean>
+
+	<!-- 使用p命名空间 -->
+	<bean id="MX4" class="com.realjt.aspring.beanrelation.Phone"
+		parent="Android" p:brand="Meizu">
+		<property name="size" value="5.36"></property>
+		<property name="camera" value="2070"></property>
+		<property name="memery" value="2"></property>
+	</bean>
+
+	<bean id="OnePlus5" class="com.realjt.aspring.beanrelation.Phone"
+		parent="Android">
+		<property name="brand" value="OnePlus"></property>
+		<property name="size" value="5.5"></property>
+		<property name="camera" value="2000"></property>
+		<property name="memery" value="6"></property>
+	</bean>
+
+	<bean id="car" class="com.realjt.aspring.beanrelation.Car"
+		p:brand="Audi" p:crop="Shanghai" p:price="200000" p:maxSpeed="240">
+	</bean>
+
+	<!-- depends-on属性，要求在配置person时，必须有一个car，否则就报错，若依赖多个bean，则用逗号分隔 -->
+	<bean id="person" class="com.realjt.aspring.beanrelation.Person"
+		p:name="realjt" p:age="24" depends-on="car,MX4"></bean>
+
+</beans>
