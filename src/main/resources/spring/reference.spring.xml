@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<bean id="car" class="com.realjt.aspring.reference.Car">
+		<property name="brand" value="Audi"></property>
+		<property name="crop" value="Shanghai"></property>
+		<property name="price" value="200000"></property>
+		<property name="maxSpeed" value="240"></property>
+	</bean>
+
+	<bean id="iPhone7" class="com.realjt.aspring.reference.Phone">
+		<property name="brand" value="Apple"></property>
+		<property name="system" value="iOS"></property>
+		<property name="arch" value="arm"></property>
+		<property name="size" value="4.7"></property>
+		<property name="camera" value="1200"></property>
+		<property name="memery" value="2"></property>
+	</bean>
+
+	<!-- 使用p命名空间 -->
+	<bean id="MX4" class="com.realjt.aspring.reference.Phone" p:brand="Meizu"
+		p:arch="arm">
+		<property name="system" value="Android"></property>
+		<property name="size" value="5.36"></property>
+		<property name="camera" value="2070"></property>
+		<property name="memery" value="2"></property>
+	</bean>
+
+	<bean id="OnePlus5" class="com.realjt.aspring.reference.Phone">
+		<property name="brand" value="OnePlus"></property>
+		<property name="system" value="Android"></property>
+		<property name="arch" value="arm"></property>
+		<property name="size" value="5.5"></property>
+		<property name="camera" value="2000"></property>
+		<property name="memery" value="6"></property>
+	</bean>
+
+	<util:list id="phones">
+		<ref bean="iPhone7" />
+		<ref bean="MX4" />
+		<ref bean="OnePlus5" />
+	</util:list>
+
+	<!-- 通过util命名空间，集合定义可多处共享 -->
+	<util:map id="phoneMap">
+		<entry key="iPhone7" value-ref="iPhone7" />
+		<entry key="MX4" value-ref="MX4" />
+		<entry key="OnePlus5" value-ref="OnePlus5" />
+	</util:map>
+
+	<!-- 使用ref属性，或者ref子节点引用已有bean -->
+	<bean id="person0" class="com.realjt.aspring.reference.Person">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="car" ref="car"></property>
+		<!-- <property name="car"> <ref bean="car" /> </property> -->
+	</bean>
+
+	<!-- 赋予null值 -->
+	<bean id="person1" class="com.realjt.aspring.reference.Person">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="car">
+			<null />
+		</property>
+	</bean>
+
+	<!-- 内部bean，没有beanId，只能在内部使用，不能被外部引用 -->
+	<bean id="person2" class="com.realjt.aspring.reference.Person">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="car">
+			<bean class="com.realjt.aspring.reference.Car">
+				<property name="brand" value="Ford"></property>
+				<property name="crop" value="Changan"></property>
+				<property name="price" value="120000"></property>
+				<property name="maxSpeed" value="200"></property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- constructor-arg中引用bean -->
+	<bean id="person3" class="com.realjt.aspring.reference.Person">
+		<constructor-arg value="juntian"></constructor-arg>
+		<constructor-arg value="20"></constructor-arg>
+		<constructor-arg ref="car"></constructor-arg>
+	</bean>
+
+	<!-- 级联属性赋值，级联属性所属对象必须先初始化 -->
+	<bean id="person4" class="com.realjt.aspring.reference.Person">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="car" ref="car"></property>
+		<property name="car.price" value="250000"></property>
+	</bean>
+
+	<!-- list集合，同样可以配置内部bean，数组也使用list，Set集合使用<set>标签 -->
+	<bean id="person5" class="com.realjt.aspring.reference.Person"
+		p:car-ref="car">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="phones">
+			<list>
+				<ref bean="iPhone7" />
+				<ref bean="MX4" />
+				<ref bean="OnePlus5" />
+				<bean id="P10" class="com.realjt.aspring.reference.Phone">
+					<property name="brand" value="Huawei"></property>
+					<property name="system" value="Android"></property>
+					<property name="arch" value="arm"></property>
+					<property name="size" value="5.0"></property>
+					<property name="camera" value="2000"></property>
+					<property name="memery" value="4"></property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="person6" class="com.realjt.aspring.reference.Person">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="car" ref="car"></property>
+		<property name="phones" ref="phones" />
+		<property name="phoneMap">
+			<map>
+				<entry key="iPhone7" value-ref="iPhone7" />
+				<entry key="MX4" value-ref="MX4" />
+				<entry key="OnePlus5" value-ref="OnePlus5" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- properties -->
+	<bean id="person7" class="com.realjt.aspring.reference.Person">
+		<property name="name" value="realjt"></property>
+		<property name="age" value="24"></property>
+		<property name="car" ref="car"></property>
+		<property name="phones" ref="phones" />
+		<property name="phoneMap" ref="phoneMap" />
+		<property name="properties">
+			<props>
+				<prop key="address">Nanjing</prop>
+				<prop key="email">realjt12@gmail.com</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
