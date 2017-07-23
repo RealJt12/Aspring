@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<bean id="car" class="com.realjt.aspring.autowire.Car">
+		<property name="brand" value="Audi"></property>
+		<property name="crop" value="Shanghai"></property>
+		<property name="price" value="200000"></property>
+		<property name="maxSpeed" value="240"></property>
+	</bean>
+
+	<bean id="phone" class="com.realjt.aspring.autowire.Phone">
+		<property name="brand" value="Apple"></property>
+		<property name="system" value="iOS"></property>
+		<property name="arch" value="arm"></property>
+		<property name="size" value="4.7"></property>
+		<property name="camera" value="1200"></property>
+		<property name="memery" value="2"></property>
+	</bean>
+
+	<!-- autowire=byName 根据bean的名字装配，若有匹配的，则装配 -->
+	<bean id="person0" class="com.realjt.aspring.autowire.Person"
+		p:name="realjt" p:age="24" autowire="byName">
+	</bean>
+
+	<!-- autowire=byType 根据类型装配，若有bean的class类型匹配，且唯一则装配，若不唯一，则报错 -->
+	<bean id="person1" class="com.realjt.aspring.autowire.Person"
+		p:name="juntian" p:age="22" autowire="byType" />
+
+</beans>
