@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- bean后置处理器，不用设置id，容器自动识别 -->
+	<bean class="com.realjt.aspring.lifecycle.LifeCyclePostProcessor"></bean>
+
+	<!-- 设置init-method和destory-method属性，指定初始化和销毁方法 -->
+	<bean id="car" class="com.realjt.aspring.lifecycle.Car"
+		init-method="init" destroy-method="destory" p:brand="Audi" p:crop="Shanghai"
+		p:price="200000" p:maxSpeed="240" p:tirePerimeter="#{T(java.lang.Math).PI * 50}">
+	</bean>
+
+</beans>
