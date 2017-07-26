@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 默认bean为单例，即scope=singleton -->
+	<bean id="car0" class="com.realjt.aspring.beanscope.Car" scope="singleton"
+		p:brand="Ford" p:crop="Changan" p:price="120000" p:maxSpeed="200"></bean>
+
+	<!-- scope=prototype，多例，每次都会创建一个新的bean实例 -->
+	<bean id="car1" class="com.realjt.aspring.beanscope.Car" scope="prototype"
+		p:brand="Ford" p:crop="Changan" p:price="120000" p:maxSpeed="200"></bean>
+
+</beans>

@@ -4,7 +4,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * autowire byName byType 不够灵活
+ * parent depends-on
  * 
  * @author realjt
  */
