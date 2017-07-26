@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<bean id="car" class="com.realjt.aspring.spel.Car">
+		<!-- 使用spel赋一个字面值 -->
+		<property name="brand" value="#{'Audi'}"></property>
+		<property name="crop" value="Shanghai"></property>
+		<property name="price" value="200000"></property>
+		<property name="maxSpeed" value="240"></property>
+		<!-- 使用spel引用静态属性值 -->
+		<property name="tirePerimeter" value="#{T(java.lang.Math).PI * 50}"></property>
+	</bean>
+
+	<bean id="person" class="com.realjt.aspring.spel.Person">
+		<property name="name" value="realjt"></property>
+		<!-- 使用spel引用其他bean的属性 -->
+		<property name="age" value="#{car.price}"></property>
+		<property name="car" value="#{car}"></property>
+		<!-- 使用spel进行动态赋值 -->
+		<property name="info"
+			value="#{car.price > 300000 ? 'gold collar' : 'white collar'}"></property>
+	</bean>
+
+</beans>
