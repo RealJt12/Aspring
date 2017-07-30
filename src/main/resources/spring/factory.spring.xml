@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 静态工厂方法，得到的是Car对象，而不是CarStaticFactory对象 -->
+	<bean id="car0" class="com.realjt.aspring.factory.CarStaticFactory"
+		factory-method="getCar">
+		<constructor-arg value="audi"></constructor-arg>
+	</bean>
+
+	<!-- 先得创建工厂本身 -->
+	<bean id="carInstanceFactory" class="com.realjt.aspring.factory.CarInstanceFactory"></bean>
+
+	<!-- 调用一个对象的方法得到Car对象 -->
+	<bean id="car1" factory-bean="carInstanceFactory" factory-method="getCar">
+		<constructor-arg value="ford"></constructor-arg>
+	</bean>
+
+	<!-- class指向FactoryBean的实现类，得到的调用getObject方法返回的对象 -->
+	<bean id="car2" class="com.realjt.aspring.factory.CarFactoryBean">
+		<property name="brand" value="BMW" />
+	</bean>
+
+</beans>
