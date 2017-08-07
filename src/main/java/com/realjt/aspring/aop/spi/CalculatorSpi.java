@@ -1,7 +1,10 @@
 package com.realjt.aspring.aop.spi;
 
+import org.springframework.stereotype.Component;
+
 import com.realjt.aspring.aop.Calculator;
 
+@Component
 public class CalculatorSpi implements Calculator
 {
 	@Override
