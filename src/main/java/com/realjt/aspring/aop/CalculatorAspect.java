@@ -29,7 +29,7 @@ public class CalculatorAspect
 	 * 声明一个切点表达式，一般该方法中不需要写入代码，使用Pointcut来声明切点表达式，在外部类中可使用全类名来访问该方法
 	 */
 	@Pointcut("execution(* com.realjt.aspring.aop.Calculator.*(..))")
-	public void calculatorJoinPointExpression()
+	public void calculatorPointcutExpression()
 	{
 
 	}
@@ -54,7 +54,7 @@ public class CalculatorAspect
 	 * 
 	 * @param joinPoint
 	 */
-	@After("calculatorJoinPointExpression()")
+	@After("calculatorPointcutExpression()")
 	public void after(JoinPoint joinPoint)
 	{
 		String methodName = joinPoint.getSignature().getName();
@@ -68,7 +68,7 @@ public class CalculatorAspect
 	 * 
 	 * @param joinpoint
 	 */
-	@AfterReturning(value = "calculatorJoinPointExpression()", returning = "result")
+	@AfterReturning(value = "calculatorPointcutExpression()", returning = "result")
 	public void afterReturning(JoinPoint joinPoint, Object result)
 	{
 		String methodName = joinPoint.getSignature().getName();
@@ -85,7 +85,7 @@ public class CalculatorAspect
 	 * @param exception
 	 *            可以具体化某个异常类型，如果异常类型匹配不到参数定义的类型，则不会执行
 	 */
-	@AfterThrowing(value = "calculatorJoinPointExpression()", throwing = "exception")
+	@AfterThrowing(value = "calculatorPointcutExpression()", throwing = "exception")
 	public void afterThrowing(JoinPoint joinPoint, Exception exception)
 	{
 		String methodName = joinPoint.getSignature().getName();
@@ -101,7 +101,7 @@ public class CalculatorAspect
 	 * @param proceedingJoinPoint
 	 *            需要携带ProceedingJoinPoint类型的参数
 	 */
-	@Around("com.realjt.aspring.aop.CalculatorAspect.calculatorJoinPointExpression()")
+	@Around("com.realjt.aspring.aop.CalculatorAspect.calculatorPointcutExpression()")
 	public Object around(ProceedingJoinPoint proceedingJoinPoint)
 	{
 		String methodName = proceedingJoinPoint.getSignature().getName();
