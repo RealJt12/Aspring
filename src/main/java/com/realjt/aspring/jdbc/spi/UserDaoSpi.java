@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import com.realjt.aspring.jdbc.User;
 import com.realjt.aspring.jdbc.UserDao;
+import com.realjt.aspring.jdbc.config.Config;
 
 public class UserDaoSpi implements UserDao
 {
@@ -50,7 +51,9 @@ public class UserDaoSpi implements UserDao
 			return;
 		}
 
-		String sql = "insert into userinfo (username,password,sex,age,phone,email,address) values (?,?,?,?,?,?,?)";
+		// String sql =
+		// "insert into userinfo (username,password,sex,age,phone,email,address) values (?,?,?,?,?,?,?)";
+		String sql = Config.getString("insert.user");
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter()
 		{
@@ -80,7 +83,9 @@ public class UserDaoSpi implements UserDao
 			return;
 		}
 
-		String sql = "insert into userinfo (username,password,sex,age,phone,email,address) values (?,?,?,?,?,?,?)";
+		// String sql =
+		// "insert into userinfo (username,password,sex,age,phone,email,address) values (?,?,?,?,?,?,?)";
+		String sql = Config.getString("insert.user");
 
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
 		{
@@ -109,7 +114,8 @@ public class UserDaoSpi implements UserDao
 	@Override
 	public User query(int id)
 	{
-		String sql = "select * from userinfo where id = ?";
+		// String sql = "select * from userinfo where id = ?";
+		String sql = Config.getString("query.user.id");
 
 		User user = jdbcTemplate.queryForObject(sql, new Object[] { id },
 				USER_ROWMAPPER);
@@ -127,7 +133,8 @@ public class UserDaoSpi implements UserDao
 			return null;
 		}
 
-		String sql = "select * from userinfo where username = ?";
+		// String sql = "select * from userinfo where username = ?";
+		String sql = Config.getString("query.user.name");
 
 		User user = jdbcTemplate.queryForObject(sql, new Object[] { username },
 				USER_ROWMAPPER);
@@ -138,7 +145,8 @@ public class UserDaoSpi implements UserDao
 	@Override
 	public List<User> query()
 	{
-		String sql = "select * from userinfo";
+		// String sql = "select * from userinfo";
+		String sql = Config.getString("query.user.list");
 
 		List<User> users = jdbcTemplate.query(sql, USER_ROWMAPPER);
 
@@ -155,7 +163,9 @@ public class UserDaoSpi implements UserDao
 			return;
 		}
 
-		String sql = "update userinfo set password = ?,sex = ?,age = ?,phone = ?,email = ?,address = ?";
+		// String sql =
+		// "update userinfo set password = ?,sex = ?,age = ?,phone = ?,email = ?,address = ?";
+		String sql = Config.getString("update.user");
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter()
 		{
@@ -177,7 +187,8 @@ public class UserDaoSpi implements UserDao
 	@Override
 	public void delete(final int id)
 	{
-		String sql = "delete from userinfo where id = ?";
+		// String sql = "delete from userinfo where id = ?";
+		String sql = Config.getString("delete.user.id");
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter()
 		{
@@ -194,7 +205,8 @@ public class UserDaoSpi implements UserDao
 	@Override
 	public void delete(final String username)
 	{
-		String sql = "delete from userinfo where username = ?";
+		// String sql = "delete from userinfo where username = ?";
+		String sql = Config.getString("delete.user.name");
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter()
 		{
@@ -211,7 +223,8 @@ public class UserDaoSpi implements UserDao
 	@Override
 	public long count()
 	{
-		String sql = "select count(*) from userinfo";
+		// String sql = "select count(*) from userinfo";
+		String sql = Config.getString("count.user");
 
 		return jdbcTemplate.queryForObject(sql, Long.class);
 	}

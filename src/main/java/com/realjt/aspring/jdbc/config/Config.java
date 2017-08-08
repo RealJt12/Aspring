@@ -1,30 +1,47 @@
 package com.realjt.aspring.jdbc.config;
 
-import java.io.IOException;
-import java.util.Properties;
+import org.springframework.util.StringUtils;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
-public class Config extends PropertyPlaceholderConfigurer
+/**
+ * 使用静态方法得到配置项，减少代码侵入
+ *
+ * @author realjt
+ */
+public class Config
 {
-	private Properties properties;
+	private static Config config = new Config();
 
-	@Override
-	protected Properties mergeProperties() throws IOException
+	private static PropertyConfigurer propertyConfigurer;
+
+	public static Config newInstance(PropertyConfigurer propertyConfigurer)
 	{
-		properties = super.mergeProperties();
+		Config.propertyConfigurer = propertyConfigurer;
 
-		return properties;
+		return config;
 	}
 
-	public Properties getProperties()
+	public static String getString(String key)
 	{
-		return properties;
+		if (!StringUtils.isEmpty(key))
+		{
+			return (String) propertyConfigurer.getProperties().get(key);
+		}
+
+		return null;
 	}
 
-	public void setProperties(Properties properties)
+	public static String getString(String key, String defaultValue)
 	{
-		this.properties = properties;
+		if (!StringUtils.isEmpty(key))
+		{
+			Object result = propertyConfigurer.getProperties().get(key);
+			if (null != result)
+			{
+				return (String) result;
+			}
+		}
+
+		return null;
 	}
 
 }

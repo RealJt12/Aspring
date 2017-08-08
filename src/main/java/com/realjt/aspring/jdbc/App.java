@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.realjt.aspring.jdbc.config.Config;
+
 public class App
 {
 	public static void main(String[] args) throws SQLException
@@ -18,6 +20,8 @@ public class App
 				.getBean("dataSource");
 
 		System.out.println(dataSource.getConnection() + "\n");
+
+		System.out.println(Config.getString("insert.user"));
 
 		applicationContext.close();
 	}
