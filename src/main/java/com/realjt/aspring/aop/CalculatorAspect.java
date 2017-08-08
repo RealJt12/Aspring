@@ -11,17 +11,29 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * 需要声明为一个切面，并作为组件交给IOC容器管理
+ * 需要声明为一个切面，并作为组件交给IOC容器管理，通过order来确定切面优先级，值越小优先级越高
  *
  * @author realjt
  */
 @Component
 @Aspect
+@Order(1)
 public class CalculatorAspect
 {
+	/**
+	 * 声明一个切点表达式，一般该方法中不需要写入代码，使用Pointcut来声明切点表达式，在外部类中可使用全类名来访问该方法
+	 */
+	@Pointcut("execution(* com.realjt.aspring.aop.Calculator.*(..))")
+	public void calculatorJoinPointExpression()
+	{
+
+	}
+
 	/**
 	 * 前置通知，在目标方法执行前执行
 	 * 
@@ -42,7 +54,7 @@ public class CalculatorAspect
 	 * 
 	 * @param joinPoint
 	 */
-	@After("execution(* com.realjt.aspring.aop.Calculator.*(..))")
+	@After("calculatorJoinPointExpression()")
 	public void after(JoinPoint joinPoint)
 	{
 		String methodName = joinPoint.getSignature().getName();
@@ -56,7 +68,7 @@ public class CalculatorAspect
 	 * 
 	 * @param joinpoint
 	 */
-	@AfterReturning(value = "execution(public int com.realjt.aspring.aop.Calculator.*(..))", returning = "result")
+	@AfterReturning(value = "calculatorJoinPointExpression()", returning = "result")
 	public void afterReturning(JoinPoint joinPoint, Object result)
 	{
 		String methodName = joinPoint.getSignature().getName();
@@ -73,7 +85,7 @@ public class CalculatorAspect
 	 * @param exception
 	 *            可以具体化某个异常类型，如果异常类型匹配不到参数定义的类型，则不会执行
 	 */
-	@AfterThrowing(value = "execution(* com.realjt.aspring.aop.Calculator.*(..))", throwing = "exception")
+	@AfterThrowing(value = "calculatorJoinPointExpression()", throwing = "exception")
 	public void afterThrowing(JoinPoint joinPoint, Exception exception)
 	{
 		String methodName = joinPoint.getSignature().getName();
@@ -89,7 +101,7 @@ public class CalculatorAspect
 	 * @param proceedingJoinPoint
 	 *            需要携带ProceedingJoinPoint类型的参数
 	 */
-	@Around("execution(* com.realjt.aspring.aop.Calculator.*(..))")
+	@Around("com.realjt.aspring.aop.CalculatorAspect.calculatorJoinPointExpression()")
 	public Object around(ProceedingJoinPoint proceedingJoinPoint)
 	{
 		String methodName = proceedingJoinPoint.getSignature().getName();
