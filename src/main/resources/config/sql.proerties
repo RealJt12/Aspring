@@ -1,0 +1,8 @@
+insert.user=insert into userinfo (username,password,sex,age,phone,email,address) values (?,?,?,?,?,?,?)
+query.user.id=select * from userinfo where id = ?
+query.user.name=select * from userinfo where username = ?
+query.user.list=select * from userinfo
+update.user=update userinfo set password = ?,sex = ?,age = ?,phone = ?,email = ?,address = ?
+delete.user.id=delete from userinfo where id = ?
+delete.user.name=delete from userinfo where username = ?
+count.user=select count(*) from userinfo
