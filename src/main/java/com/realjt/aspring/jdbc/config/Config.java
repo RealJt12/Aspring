@@ -13,7 +13,12 @@ public class Config
 
 	private static PropertyConfigurer propertyConfigurer;
 
-	public static Config newInstance(PropertyConfigurer propertyConfigurer)
+	private Config()
+	{
+
+	}
+
+	public static Config getInstance(PropertyConfigurer propertyConfigurer)
 	{
 		Config.propertyConfigurer = propertyConfigurer;
 
@@ -34,11 +39,8 @@ public class Config
 	{
 		if (!StringUtils.isEmpty(key))
 		{
-			Object result = propertyConfigurer.getProperties().get(key);
-			if (null != result)
-			{
-				return (String) result;
-			}
+			return propertyConfigurer.getProperties().getProperty(key,
+					defaultValue);
 		}
 
 		return null;

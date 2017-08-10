@@ -10,18 +10,22 @@
 	<!-- <context:property-placeholder file-encoding="utf-8" location="classpath:config/jdbc.properties" 
 		/> -->
 
-	<bean id="propertyConfigurer" class="com.realjt.aspring.jdbc.config.PropertyConfigurer">
+	<bean id="propertyConfigurer" class="com.realjt.aspring.jdbc.config.PropertyConfigurer"
+		p:fileEncoding="utf-8">
 		<property name="locations">
 			<list>
 				<value>classpath:config/*.properties</value>
 			</list>
 		</property>
+		<property name="localOverride" value="true"></property>
+		<property name="ignoreResourceNotFound" value="true"></property>
+		<property name="ignoreUnresolvablePlaceholders" value="true"></property>
 	</bean>
 
 	<bean id="config" class="com.realjt.aspring.jdbc.config.Config"
-		factory-method="newInstance">
+		factory-method="getInstance">
 		<constructor-arg ref="propertyConfigurer"></constructor-arg>
-		</bean>
+	</bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
