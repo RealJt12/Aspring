@@ -19,7 +19,7 @@ public class App
 		DataSource dataSource = (DataSource) applicationContext
 				.getBean("dataSource");
 
-		System.out.println(dataSource.getConnection() + "\n");
+		System.out.println(dataSource.getConnection());
 
 		System.out.println(Config.getString("insert.user"));
 
